@@ -1,3 +1,7 @@
+###
+Trying out the example found on the nowjs github page
+https://github.com/Flotype/now
+###
 fs = require('fs')
 http = require('http')
 
