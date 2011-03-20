@@ -1,0 +1,14 @@
+!!! 5
+html(lang="en")
+    head
+        title= "My Paste Bin"
+    
+    body
+        h1 My Paste Bin
+        form(method="POST", action="/paste")
+            label(for="post[name]") Name
+            input(type="textbox", name="post[name]")
+            br
+            label(for="post[code]") Code
+            textarea(name="post[code]", rows=48, columns=80)
+            input(type="submit")
