@@ -4,5 +4,7 @@ html(lang="en")
         title= paste.name
         link(rel="stylesheet", href="/css/syntax.css")
     body
-        p #{paste.lang}
-        pre #{paste.code}
+        p #{paste.name} (#{paste.lang})
+        hr
+        div#code
+            !{pygment_output}

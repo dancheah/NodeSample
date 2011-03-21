@@ -1,5 +1,6 @@
 express = require('express')
 redis   = require('redis-node')
+spawn   = require('child_process').spawn
 
 # Connect to redis
 client  = redis.createClient()
@@ -37,10 +38,21 @@ app.get('/paste/:id', (req, res) ->
     client.hgetall("paste-#{req.params.id}", (e, r) ->
         if (e)
             throw e
-        console.log("name: #{r.name}")
-        console.log("lang: #{r.lang}")
-        console.log("code: #{r.code}")
-        res.render('paste', { layout: false, paste: r })
+
+        # Spawn the pygmentize process. Make sure it's in the path.
+        # I don't do error checking yet.
+        # Alternatively I should use the pymentize appspot service.
+        pygmentize = spawn('pygmentize', ['-f', 'html', '-l', r.lang])
+
+        pygmentize.stdout.on('data', (data) ->
+            console.log("Got Output From Pygmentize")
+
+            # Now syntax highlighting with pygments
+            res.render('paste', { layout: false, paste: r, pygment_output: data.toString('utf8') })
+        )
+
+        pygmentize.stdin.write(r.code)
+        pygmentize.stdin.end()
     )
 )
 
