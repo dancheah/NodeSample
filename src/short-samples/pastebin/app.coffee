@@ -8,6 +8,7 @@ client.select(0)
 app = express.createServer()
 app.use(express.errorHandler({ dump: true, stack: true }))
 app.use(express.bodyParser())
+app.use(express.static(__dirname + '/public'))
 app.set('views', __dirname + '/views')
 app.set('view engine', 'jade')
 
@@ -18,25 +19,30 @@ app.get('/', (req, res) ->
 
 app.post('/paste', (req, res) ->
     console.log("Paste Request")
-    console.log("name = #{req.body.post.name}")
-    console.log("code = #{req.body.post.code}")
-
+    # Get a new id for this paste
     client.incr("paste_id", (err, newid) ->
         console.log("New Id #{newid}")
-        client.transaction(() ->
-            client.set("name-#{newid}", req.body.post.name, (e, r) ->
-                if (e) 
-                    throw e
-            )
-            client.set("code-#{newid}", req.body.post.code, (e, r) ->
-                if (e) 
-                    throw e
-                res.redirect('/')
-            )
+        # I'm assuming that hmset is atomic
+        client.hmset("paste-#{newid}", req.body.paste, (e, r) ->
+            if (e) 
+                throw e
+            res.redirect("/paste/#{newid}")
         )
     )
 )
 
+# Get something that we pasted
+app.get('/paste/:id', (req, res) ->
+    console.log("Get Paste Request #{req.params.id}")
+    client.hgetall("paste-#{req.params.id}", (e, r) ->
+        if (e)
+            throw e
+        console.log("name: #{r.name}")
+        console.log("lang: #{r.lang}")
+        console.log("code: #{r.code}")
+        res.render('paste', { layout: false, paste: r })
+    )
+)
 
 console.log("Start Server")
 app.listen(3000)

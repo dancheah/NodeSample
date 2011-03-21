@@ -6,9 +6,21 @@ html(lang="en")
     body
         h1 My Paste Bin
         form(method="POST", action="/paste")
-            label(for="post[name]") Name
-            input(type="textbox", name="post[name]")
+            label(for="paste[name]") Name
+            input(type="textbox", name="paste[name]")
             br
-            label(for="post[code]") Code
-            textarea(name="post[code]", rows=48, columns=80)
+
+            label(for="paste[lang]") Language
+            select(name="paste[lang]")
+                option(value="python") Python
+                option(value="ruby") Ruby
+                option(value="perl") Perl
+                option(value="haskell") Haskell
+                option(value="javascript") Javascript
+            br
+
+            label(for="paste[code]") Code
+            textarea(name="paste[code]", rows=48, columns=80)
+            br
+
             input(type="submit")
