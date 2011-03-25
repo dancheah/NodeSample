@@ -1,0 +1,37 @@
+!!! 5
+html(lang="en",)
+    head
+        title= "My Paste Bin V2"
+        meta(charset="utf-8")
+        link(href="/css/screen.css", rel="stylesheet", media="screen, projection", type="text/css")
+        link(href="/css/print.css", rel="stylesheet", media="print", type="text/css")
+        /if lt IE 8
+            link(rel="stylesheet", href="/css/ie.css", type="text/css", media="screen, projection")
+    
+    body
+        .container
+            .span-12.last
+                h1 My Paste Bin
+                hr
+                form(method="POST", action="/paste")
+                    fieldset
+                        legend Paste Code Here
+                        p
+                            label(for="paste[name]") Name
+                            br
+                            input(type="textbox", name="paste[name]")
+                        p
+                            label(for="paste[lang]") Language
+                            br
+                            select(name="paste[lang]")
+                                option(value="python") Python
+                                option(value="ruby") Ruby
+                                option(value="perl") Perl
+                                option(value="haskell") Haskell
+                                option(value="javascript") Javascript
+                        p
+                            label(for="paste[code]") Code
+                            br
+                            textarea(name="paste[code]", rows=5, columns=20)
+                        p
+                            input(type="submit")
