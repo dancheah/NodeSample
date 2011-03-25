@@ -133,7 +133,12 @@ body.bp form.inline p {
   margin-bottom: 0;
 }
 
-/* line 22, ../../src/screen.scss */
+/* line 23, ../../src/screen.scss */
+.showgrid {
+  background: url('/images/grid.png?1301078214');
+}
+
+/* line 27, ../../src/screen.scss */
 body.bp {
   line-height: 1.5;
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
@@ -503,15 +508,14 @@ form.bp textarea {
   height: 250px;
 }
 
-/* line 36, ../../src/screen.scss */
+/* line 43, ../../src/screen.scss */
 body.two-col #container {
   width: 950px;
   margin: 0 auto;
   overflow: hidden;
   *zoom: 1;
-  background: url('/images/grid.png?1301078214');
 }
-/* line 39, ../../src/screen.scss */
+/* line 46, ../../src/screen.scss */
 body.two-col #header, body.two-col #footer {
   display: inline;
   float: left;
@@ -522,7 +526,7 @@ body.two-col #header, body.two-col #footer {
 * html body.two-col #header, * html body.two-col #footer {
   overflow-x: hidden;
 }
-/* line 41, ../../src/screen.scss */
+/* line 48, ../../src/screen.scss */
 body.two-col #sidebar {
   display: inline;
   float: left;
@@ -533,7 +537,7 @@ body.two-col #sidebar {
 * html body.two-col #sidebar {
   overflow-x: hidden;
 }
-/* line 45, ../../src/screen.scss */
+/* line 53, ../../src/screen.scss */
 body.two-col #content {
   display: inline;
   float: left;

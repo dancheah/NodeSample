@@ -8,24 +8,22 @@ html(lang='en')
     link(href="/stylesheets/print.css", rel="stylesheet", media="print", type="text/css")
     /if lt IE 8
         link(rel="stylesheet", href="/css/ie.css", type="text/css", media="screen, projection")
-    // See http://www.sencha.com/learn/Tutorial:HTML_Page_Setup
-    // CSS for ExtJS
-    link(rel="stylesheet", type="text/css", href="/javascripts/ext-3.2.1/resources/css/ext-all.css")
   body.bp.two-col.showgrid
     div#container
       div#header
         h1 Pomotodo
-      div#sidebar List of things to do
+      div#sidebar
+        ul
+          - todo_list.forEach(function(item) {
+            li(id=item[0])= item[1]['name']
+          - })
+
       div#content!= body
       div#footer A footer. Blah blah copyright dcheah blah blah 2011
 
-      // JS for ExtJS
-      script(type="text/javascript", src="/javascripts/ext-3.2.1/adapter/ext/ext-base.js")
-      script(type="text/javascript", src="/javascripts/ext-3.2.1/ext-all-debug.js")
+      script(type="text/javascript", src="/javascripts/jquery-1.5.1.js")
       // Cannot get coffeescript to load. Need to use normal javascript
       script(type="text/javascript")
-          Ext.BLANK_IMAGE_URL = '/javascripts/ext-3.2.1/resources/images/default/s.gif'
-
-          Ext.onReady(function() {
-            console.info('woohoo!!!');
+          $(document).ready(function() {
+            console.log("pomotodo ready");
           });

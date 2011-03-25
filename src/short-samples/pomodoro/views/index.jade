@@ -1,2 +1,14 @@
-h1= title
-p Welcome to #{title}
+div#todoform
+  form.bp(method="POST", action="/todo")
+    fieldset
+      legend Enter Todo Item
+      p
+        label(for="todo[name]") Name
+        br
+        input(type="textbox", name="todo[name]", size=40)
+      p
+        label(for="todo[desc]") Description
+        br
+        textarea(name="todo[desc]", rows=5, columns=20)
+      p
+        input(type="submit")
