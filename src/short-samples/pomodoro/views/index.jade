@@ -1,4 +1,4 @@
-div#todoform
+div#todo_form
   form.bp(method="POST", action="/todo")
     fieldset
       legend Enter Todo Item
@@ -12,3 +12,11 @@ div#todoform
         textarea(name="todo[desc]", rows=5, columns=20)
       p
         input(type="submit")
+
+// See http://keith-wood.name/countdownRef.html
+div(style="display: none;")#pomodoro_timer
+  p Pomodoro Timer Goes Here
+  h1#display_timer 25:00
+  p(style="display: none;")#countdown_timer 25:00
+  button#pomodoro_start Start
+  button#pomodoro_interrupt Interrupt

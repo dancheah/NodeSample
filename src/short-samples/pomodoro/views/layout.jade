@@ -8,12 +8,13 @@ html(lang='en')
     link(href="/stylesheets/print.css", rel="stylesheet", media="print", type="text/css")
     /if lt IE 8
         link(rel="stylesheet", href="/css/ie.css", type="text/css", media="screen, projection")
+    link(href="/javascripts/countdown/jquery.countdown.css", rel="stylesheet", media="screen, project", type="text/css")
   body.bp.two-col.showgrid
     div#container
       div#header
         h1 Pomotodo
       div#sidebar
-        ul
+        ul#todo_list
           - todo_list.forEach(function(item) {
             li(id=item[0])= item[1]['name']
           - })
@@ -22,8 +23,5 @@ html(lang='en')
       div#footer A footer. Blah blah copyright dcheah blah blah 2011
 
       script(type="text/javascript", src="/javascripts/jquery-1.5.1.js")
-      // Cannot get coffeescript to load. Need to use normal javascript
-      script(type="text/javascript")
-          $(document).ready(function() {
-            console.log("pomotodo ready");
-          });
+      script(type="text/javascript", src="/javascripts/countdown/jquery.countdown.js")
+      script(type="text/javascript", src="/javascripts/client.js")
