@@ -14,10 +14,10 @@ div#todo_form
         input(type="submit")
 
 // See http://keith-wood.name/countdownRef.html
-div(style="display: none;")#pomodoro_timer
+div(style="display: none;")#pomodoro
   p Pomodoro Timer Goes Here
-  h1#display_timer 25:00
-  p(style="display: none;")#countdown_timer 25:00
+  h1#pomodoro_timer 25:00
+  h1(style="display: none;")#interrupt_timer 00:15
   button#pomodoro_start Start
   button(disabled=true)#pomodoro_interrupt Interrupt
   button(disabled=true)#pomodoro_resume Resume
