@@ -22,8 +22,6 @@ pomodoro_object =
   remainingTime: -1
   interruptTime: -1
 
-  getInitialRemainingTime:
-
 format_countdown = (milliseconds) ->
   secondsRemaining = milliseconds % 60000 
   minutesRemaining = (milliseconds - secondsRemaining) / 60000
