@@ -73,7 +73,7 @@ _.invoke(["hello", "world"], 'substr')
 _.invoke(["hello", "world"], 'substr', 0, 1)
 # => h,w
 
-stooges = [{name : 'moe', age : 40}, {name : 'larry', age : 50}, {name : 'curly', age : 60}];
+stooges = [{name : 'moe', age : 40}, {name : 'larry', age : 50}, {name : 'curly', age : 60}]
 _.pluck(stooges, 'name')
 # => moe,larry,curly
 _.pluck(stooges, 'age')
@@ -84,4 +84,14 @@ _.max(stooges, (s) -> s.age).name
 _.min(stooges, (s) -> s.age).name
 # => moe
 
-_.each(_.sortBy(stooges, (s) -> s.age), (o) -> console.log(o))
+_(stooges).chain()
+          .sortBy((s) -> s.age)
+          .each((o) -> console.log(o))
+# => { name: 'moe', age: 40 }
+#    { name: 'larry', age: 50 }
+#    { name: 'curly', age: 60 }
+
+_.sortedIndex([10, 20, 30, 40, 50], 35)
+# => 3
+
+# Skipping toArray, size
