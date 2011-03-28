@@ -1,5 +1,35 @@
+Pomodoro = Backbone.Model.extend(
+  defaults:
+    "remainingTime": 1000 * 60 * 25 
+    "interruptTime": 1000 * 15
+    "state":         "stopped"
+
+  #initialize: () ->
+    #console.log("initialize")
+    #if (!this.get("remainingTime")) 
+      #this.set({"remainingTime": 1000 * 60 * 24})
+
+    #console.log("remaining time #{this.get("remainingTime")}")
+
+  pomodoroTick: () ->
+    this.set({ "remainingTime": this.get("remainingTime") - 1000 }) 
+
+  # Start the pomodoro
+  start: () ->
+    this.set({ state: "start" })
+
+  # Interrupt the pomodoro
+  interrupt: () ->
+    this.set({ state: 'interrupt' })
+
+  # Resume the pomodoro
+  resume: () ->
+    this.set({ state: "inprogress" })  
+)
+
+
 show_pomodoro_timer = (e) -> 
-  console.log($(this).attr('id'))
+  # console.log($(this).attr('id'))
   $('#todo_form').hide()
   $('#pomodoro').show()
 
@@ -11,16 +41,6 @@ toggle_buttons = () ->
 
 sound_alarm = () ->
   $('#audiofile')[0].play()
-
-pomodoro_object =
-  # 25 Minutes
-  InitialRemainingTime: 1000 * 60 * 25 
-
-  # 15 Seconds
-  InitialInterruptTime: 1000 * 15
-
-  remainingTime: -1
-  interruptTime: -1
 
 format_countdown = (milliseconds) ->
   secondsRemaining = milliseconds % 60000 
@@ -34,6 +54,8 @@ format_countdown = (milliseconds) ->
   return minutesRemaining + ":" + secondsRemaining
 
 $(document).ready(() ->
+  pomodoro = new Pomodoro()
+
   # TODO: The logic in here is getting complicated. Time to
   # refactor it
   console.log("pomotodo ready")
@@ -47,17 +69,18 @@ $(document).ready(() ->
 
   $('h1#pomodoro_timer').text(format_countdown(remainingTime))
 
-  pomodoroTick = () ->
-    remainingTime = remainingTime - 1000
-    $('h1#pomodoro_timer').text(format_countdown(remainingTime))
+  #pomodoroTick = () ->
+    #remainingTime = remainingTime - 1000
+    #$('h1#pomodoro_timer').text(format_countdown(remainingTime))
 
-    if remainingTime <= 0
-      clearInterval(intervalID)
-      sound_alarm()
+    #if remainingTime <= 0
+      #clearInterval(intervalID)
+      #sound_alarm()
 
   $('button#pomodoro_start').click(() ->
-    console.log("you started a pomodoro")
-    intervalID = setInterval(pomodoroTick, 1000)
+    # console.log("you started a pomodoro")
+    intervalID = setInterval(_.bind(pomodoro.pomodoroTick, pomodoro), 1000)
+
     toggle_buttons()
   )
 
@@ -65,7 +88,7 @@ $(document).ready(() ->
   interruptTime = 1000 * 15
 
   $('button#pomodoro_interrupt').click(() -> 
-    console.log("you interrupted a pomodoro")
+    # console.log("you interrupted a pomodoro")
 
     tick = () -> 
       interruptTime = interruptTime - 1000
