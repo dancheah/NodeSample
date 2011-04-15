@@ -23,4 +23,20 @@ a.push(false)
 a = _c(a).compact().value()
 # => 1,2,3,4,5
 
-# Stopping at flatten for now
+b = [ [1,2,3], [4,5,6], [7, 8, 9] ]
+_c(b).flatten().value()
+# => 1,2,3,4,5,6,7,8,9
+
+_c(a).without(1, 2).value()
+# => 3,4,5
+
+c = [1, 2, 2, 3, 3, 3]
+_c(c).uniq().value()
+# => 1,2,3
+_c(c).unique().value()
+# => 1,2,3
+
+_c(a).intersect(c).value()
+# => 1,2,3
+
+# Stop at zip
